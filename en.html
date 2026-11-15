@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas &amp; Chaos — Design &amp; video for independent wrestling</title>
+<meta name="description" content="Event posters, match cards, merch, promo photos and video editing — only for independent wrestling promotions. Puerto Rico, Latin America and the US.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b0e22;--navy2:#12142e;--cream:#f6eeda;--red:#d8232a;--yellow:#ffc61a;--gold:#d4a020;--blue:#2456c8;--ink:#14142a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);color:var(--cream);font-family:'Oswald',Arial,sans-serif;line-height:1.5}
+h1,h2,h3,.anton{font-family:'Anton','Arial Black',sans-serif;letter-spacing:.02em;text-transform:uppercase}
+a{color:var(--yellow)}
+header{position:sticky;top:0;z-index:50;background:#07081a;border-bottom:4px solid var(--red);display:flex;justify-content:space-between;align-items:center;padding:.7rem 1.1rem}
+.logo{font-family:'Anton','Arial Black',sans-serif;font-size:1.5rem;color:#fff;text-transform:uppercase}
+.logo span{color:var(--yellow)}
+.lang{color:#fff;text-decoration:none;border:2px solid var(--yellow);padding:.25rem .7rem;border-radius:4px;font-weight:600}
+.hero{padding:3.2rem 1.1rem 2.4rem;text-align:center;background:radial-gradient(ellipse at 30% 20%,rgba(36,86,200,.35),transparent 55%),radial-gradient(ellipse at 75% 25%,rgba(212,160,32,.25),transparent 55%),var(--navy)}
+.hero .kick{color:var(--yellow);font-weight:600;letter-spacing:.25em;font-size:.85rem}
+.hero h1{font-size:clamp(2.4rem,7.5vw,4.6rem);color:#fff;line-height:1.02;margin:.6rem auto;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--yellow);text-shadow:3px 3px 0 var(--red)}
+.hero p{max-width:56ch;margin:0 auto 1.4rem;font-size:1.12rem}
+.btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-family:'Anton','Arial Black',sans-serif;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:6px;font-size:1.05rem;box-shadow:0 4px 0 #7d1216;margin:.2rem}
+.btn.alt{background:transparent;border:2px solid var(--yellow);color:var(--yellow);box-shadow:none}
+section{padding:2.6rem 1.1rem;max-width:1120px;margin:0 auto}
+h2{font-size:clamp(1.7rem,4.5vw,2.6rem);color:#fff;text-align:center}
+h2 .y{color:var(--yellow)}
+.sub{text-align:center;max-width:62ch;margin:.5rem auto 1.8rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
+.card{background:var(--cream);color:var(--ink);border-radius:8px;overflow:hidden;transform:rotate(-.6deg);box-shadow:0 10px 24px rgba(0,0,0,.45);cursor:pointer;border:none;text-align:left;font-family:inherit;width:100%}
+.card:nth-child(even){transform:rotate(.7deg)}
+.card img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover;object-position:top}
+.card .cb{padding:.8rem .9rem 1rem}
+.card h3{font-size:1.15rem;color:var(--ink)}
+.card .pr{color:var(--red);font-family:'Anton','Arial Black',sans-serif;font-size:1.25rem}
+.card .go{color:var(--blue);font-weight:600;font-size:.92rem}
+table{width:100%;border-collapse:collapse;background:var(--navy2);border:2px solid #2a2d55;border-radius:8px;overflow:hidden;margin-bottom:1.6rem}
+th{background:var(--red);color:#fff;font-family:'Anton','Arial Black',sans-serif;text-transform:uppercase;text-align:left;padding:.7rem .9rem;font-size:1.05rem}
+td{padding:.62rem .9rem;border-bottom:1px solid #262950;vertical-align:top}
+td.p{font-family:'Anton','Arial Black',sans-serif;color:var(--yellow);white-space:nowrap;font-size:1.1rem}
+td a{font-weight:600}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.pkg{background:var(--cream);color:var(--ink);border-radius:8px;padding:1.3rem;border-top:10px solid var(--blue)}
+.pkg.hot{border-top-color:var(--red)}
+.pkg h3{font-size:1.35rem}
+.pkg .pr{font-family:'Anton','Arial Black',sans-serif;font-size:2rem;color:var(--red)}
+.pkg ul{margin:.6rem 0 1rem 1.1rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem}
+.step{background:var(--navy2);border:2px solid #2a2d55;border-radius:8px;padding:1.2rem}
+.step .n{font-family:'Anton','Arial Black',sans-serif;font-size:2.2rem;color:var(--yellow)}
+.about{background:var(--navy2);border-left:8px solid var(--yellow);border-radius:6px;padding:1.4rem 1.5rem;max-width:820px;margin:0 auto}
+dialog{background:var(--cream);color:var(--ink);border:none;border-radius:10px;max-width:620px;width:94vw;padding:0;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(3,3,12,.8)}
+dialog .di{padding:1.1rem 1.3rem 1.4rem}
+dialog img{width:100%;display:block;border-radius:6px 6px 0 0;max-height:52vh;object-fit:cover;object-position:top}
+dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+dialog .two img{border-radius:0;max-height:46vh}
+dialog h3{font-size:1.5rem;margin-bottom:.3rem}
+dialog .pr{font-family:'Anton','Arial Black',sans-serif;color:var(--red);font-size:1.6rem}
+dialog ul{margin:.5rem 0 1rem 1.15rem}
+.x{float:right;background:var(--red);color:#fff;border:none;font-family:'Anton','Arial Black',sans-serif;border-radius:50%;width:38px;height:38px;font-size:1rem;cursor:pointer;margin:.6rem}
+footer{background:#07081a;border-top:4px solid var(--red);padding:2rem 1.1rem;text-align:center;font-size:.95rem}
+.small{font-size:.82rem;opacity:.75;max-width:70ch;margin:.6rem auto 0}
+.note{background:#1c1030;border:2px solid #6d28a8;border-radius:8px;padding:1rem 1.2rem;max-width:820px;margin:0 auto 1.4rem;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Canvas <span>&amp;</span> Chaos</div>
+  <a class="lang" href="index.html">ES</a>
+</header>
+
+<div class="hero">
+  <div class="kick">INDEPENDENT WRESTLING ONLY</div>
+  <h1>Your promotion should look <em>like a big-league company</em></h1>
+  <p>Event posters, match cards, merch, promo photos and video editing for independent promotions in Puerto Rico, Latin America and Latino promotions in the US — made by people who know the business from inside the ring.</p>
+  <a class="btn" href="mailto:swingbravo@gmail.com?subject=Info%20request%20—%20Canvas%20%26%20Chaos">Order by email</a>
+  <a class="btn alt" href="#work">See the work</a>
+</div>
+
+<section id="work">
+  <h2>Sample <span class="y">work</span></h2>
+  <p class="sub">This is what a promotion receives when it orders from us. Tap any sample to see the details and the price. (Sample promotion and wrestlers: <strong>Lucha Isleña Championship</strong>, fictional.)</p>
+  <div class="grid">
+    <button class="card" onclick="openD('d-cartelera')"><img src="img/cartelera.jpg" alt="Wrestling event poster"><div class="cb"><h3>Event poster</h3><div class="pr">$39</div><span class="go">See details — 2 styles →</span></div></button>
+    <button class="card" onclick="openD('d-mc1')"><img src="img/match-card-1.jpg" alt="Main event match card"><div class="cb"><h3>Match card — main event</h3><div class="pr">$15</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-mc2')"><img src="img/match-card-2.jpg" alt="Women's match card"><div class="cb"><h3>Match card — women's</h3><div class="pr">$15</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-foto')"><img src="img/foto-8x10.jpg" alt="Wrestler 8x10 promo photo"><div class="cb"><h3>8×10 promo photo</h3><div class="pr">$15</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-camiseta')"><img src="img/camiseta.jpg" alt="Wrestler t-shirt design"><div class="cb"><h3>T-shirt design</h3><div class="pr">$29</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-stickers')"><img src="img/stickers.jpg" alt="Wrestler sticker sheet"><div class="cb"><h3>Sticker sheet</h3><div class="pr">$19</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-mascara')"><img src="img/mascara-diseno.jpg" alt="Wrestling mask design"><div class="cb"><h3>Mask design</h3><div class="pr">$39</div><span class="go">See details →</span></div></button>
+    <button class="card" onclick="openD('d-tarjeta')"><img src="img/tarjeta-frente.jpg" alt="Wrestler trading card"><div class="cb"><h3>Wrestler trading card</h3><div class="pr">$15</div><span class="go">See details →</span></div></button>
+  </div>
+</section>
+
+<section id="prices">
+  <h2>Services <span class="y">&amp; prices</span></h2>
+  <p class="sub">Entry-level prices, no surprises. Singles to try us out, packages to scale.</p>
+  <table>
+    <tr><th>Design</th><th>What you get</th><th>Price</th><th></th></tr>
+    <tr><td><strong>Match card</strong></td><td>Wrestler vs wrestler graphic ready for social media, with date and venue.</td><td class="p">$15</td><td><a href="https://payhip.com/b/4jkHx">Order</a></td></tr>
+    <tr><td><strong>Event poster</strong></td><td>Full poster with the complete card, print-ready and social-ready. <strong>Two styles: Modern or Classic PR (cutout-face collage with your full roster)</strong> — you pick.</td><td class="p">$39</td><td><a href="https://payhip.com/b/G0bh7">Order</a></td></tr>
+    <tr><td><strong>8×10 promo photo</strong></td><td>Classic promo-style wrestler photo with name and logo, ready to sell and sign at shows.</td><td class="p">$15</td><td><a href="https://payhip.com/b/I3Djf">Order</a></td></tr>
+    <tr><td><strong>Wrestler trading card</strong></td><td>Front and back in trading-card style, with bio data and season-by-season record.</td><td class="p">$15</td><td><a href="https://payhip.com/b/god0W">Order</a></td></tr>
+    <tr><td><strong>Sticker sheet</strong></td><td>A sheet with your wrestlers, masks and logo, ready to print.</td><td class="p">$19</td><td><a href="https://payhip.com/b/0yoIO">Order</a></td></tr>
+    <tr><td><strong>Tickets &amp; venue banner</strong></td><td>Event ticket design and venue banner in the same visual line as your poster.</td><td class="p">$29</td><td><a href="https://payhip.com/b/lOmiG">Order</a></td></tr>
+    <tr><td><strong>T-shirt design</strong></td><td>Merch artwork ready for your printer, with the wrestler's character or logo.</td><td class="p">$29</td><td><a href="https://payhip.com/b/yn4eT">Order</a></td></tr>
+    <tr><td><strong>Mask design</strong></td><td>Complete mask concept (front, colors, materials) ready to hand to your mask maker.</td><td class="p">$39</td><td><a href="https://payhip.com/b/EexPT">Order</a></td></tr>
+    <tr><td><strong>Wrestler logo</strong></td><td>The character's personal logo for merch, social media and graphics.</td><td class="p">$39</td><td><a href="https://payhip.com/b/DqrWi">Order</a></td></tr>
+    <tr><td><strong>Promotion logo</strong></td><td>Your company's identity: main logo + social media version.</td><td class="p">$49</td><td><a href="https://payhip.com/b/kxRXm">Order</a></td></tr>
+    <tr><td><strong>Event social kit</strong></td><td>Poster + match cards + countdown graphic, all in one visual line.</td><td class="p">$79</td><td><a href="https://payhip.com/b/OLGE9">Order</a></td></tr>
+  </table>
+  <table>
+    <tr><th>Video</th><th>What you get</th><th>Price</th><th></th></tr>
+    <tr><td><strong>Full match edit</strong></td><td>Your match edited clean, with name graphics, ready for YouTube and social media.</td><td class="p">$25</td><td><a href="https://payhip.com/b/abA3L">Order</a></td></tr>
+    <tr><td><strong>Entrance video (tron)</strong></td><td>The wrestler's entrance video with name, logo and style.</td><td class="p">$39</td><td><a href="https://payhip.com/b/V0os8">Order</a></td></tr>
+    <tr><td><strong>Wrestler highlight reel</strong></td><td>A 1–2 minute mini-reel of the wrestler's best work, to chase bookings and sponsors.</td><td class="p">$49</td><td><a href="https://payhip.com/b/C79vL">Order</a></td></tr>
+    <tr><td><strong>Full show edit</strong></td><td>The whole program edited (up to 6 matches) with graphics, ready to publish.</td><td class="p">$89</td><td><a href="https://payhip.com/b/SEzeG">Order</a></td></tr>
+  </table>
+  <div class="note"><strong>Championship belts?</strong> We don't make them. That's a different world — our strength is making your company and your wrestlers look professional on paper, on social media and on video.</div>
+  <div class="pkgs">
+    <div class="pkg hot"><h3>Event Package</h3><div class="pr">$99</div><ul><li>Event poster</li><li>Match cards for your whole card (up to 6)</li><li>Social kit with countdown</li><li>Venue banner</li></ul><a class="btn" href="https://payhip.com/b/I0umj">Order the package</a></div>
+    <div class="pkg"><h3>Wrestler Pro Package</h3><div class="pr">$79</div><ul><li>Personal wrestler logo</li><li>8×10 promo photo</li><li>Wrestler trading card</li><li>1–2 minute highlight reel</li></ul><a class="btn" href="https://payhip.com/b/x4SPD">Order the package</a></div>
+    <div class="pkg"><h3>Promotion Monthly</h3><div class="pr">$149<span style="font-size:1rem">/mo</span></div><ul><li>2 Event Packages per month</li><li>Announcement graphics all month</li><li>1 full show edited</li><li>Priority delivery</li></ul><p style="font-size:.95rem;margin:.35rem 0 0">Monthly plan — write to us at <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p></div>
+    <div class="pkg"><h3>Total Monthly</h3><div class="pr">$249<span style="font-size:1rem">/mo</span></div><ul><li>Everything in Promotion Monthly</li><li>2 full shows edited</li><li>New merch design every month (1 design)</li><li>48-hour priority turnaround</li></ul><p style="font-size:.95rem;margin:.35rem 0 0">Monthly plan — write to us at <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p></div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>How it <span class="y">works</span></h2>
+  <p class="sub">No endless forms. Everything by email.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Write to us</h3><p>Send your wrestlers' photos and the event details to <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a>.</p></div>
+    <div class="step"><div class="n">2</div><h3>Get the proof</h3><p>We show you the finished piece, watermarked, for your approval.</p></div>
+    <div class="step"><div class="n">3</div><h3>Approve &amp; receive</h3><p>You pay and the final files arrive: print-ready (300 dpi) and social-ready.</p></div>
+  </div>
+</section>
+
+<section id="behind">
+  <h2>Who's <span class="y">behind it</span></h2>
+  <p class="sub"></p>
+  <div class="about"><p>Canvas &amp; Chaos is run by someone who spent <strong>25+ years inside the business as a referee in Puerto Rico</strong> — and saw up close what separates the promotion that packs the building from the one that can't sell its tickets: how it looks. That's why we don't do generic "sports design." Only independent wrestling, with the language, the timelines and the real budget of a small promotion.</p></div>
+</section>
+
+<footer>
+  <div class="logo">Canvas <span>&amp;</span> Chaos</div>
+  <p>Orders and questions: <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p>
+  <p class="small">The samples on this page use a fictional promotion and wrestlers (Lucha Isleña Championship) to show the style of the work. Your company gets designs with YOUR people and YOUR brand. © 2026 Canvas &amp; Chaos.</p>
+</footer>
+
+<dialog id="d-cartelera"><button class="x" onclick="closeD('d-cartelera')">✕</button><div style="background:var(--ink);color:var(--yellow);font-family:'Anton','Arial Black',sans-serif;padding:.55rem .9rem;letter-spacing:.06em">MODERN STYLE — MAIN EVENT UP BIG</div><img src="img/cartelera.jpg" alt="Modern style event poster"><div style="background:var(--ink);color:var(--yellow);font-family:'Anton','Arial Black',sans-serif;padding:.55rem .9rem;letter-spacing:.06em">CLASSIC PR STYLE — CUTOUT FACES</div><img src="img/cartelera-caritas.jpg" alt="Classic PR style poster with cutout faces"><div class="di"><h3>Event poster</h3><div class="pr">$39</div><ul><li><strong>Two styles to choose from:</strong> Modern (the main event up big) or Classic PR (the cutout-face collage with your FULL roster, like the classic Puerto Rican posters — you send your roster's photos and we build the collage)</li><li>Complete card with every match of the night</li><li>Print version (300 dpi) and social media version</li><li>Date, venue and prices built in</li></ul><a class="btn" href="https://payhip.com/b/G0bh7">Order — $39</a></div></dialog>
+<dialog id="d-mc1"><button class="x" onclick="closeD('d-mc1')">✕</button><img src="img/match-card-1.jpg" alt="Main event match card"><div class="di"><h3>Match card — main event</h3><div class="pr">$15</div><ul><li>Both wrestlers face to face, names and date</li><li>Square format ready for Instagram and Facebook</li><li>Same visual line as your poster</li></ul><a class="btn" href="https://payhip.com/b/4jkHx">Order — $15</a></div></dialog>
+<dialog id="d-mc2"><button class="x" onclick="closeD('d-mc2')">✕</button><img src="img/match-card-2.jpg" alt="Women's match card"><div class="di"><h3>Match card — women's division</h3><div class="pr">$15</div><ul><li>Serious presentation for your women's division</li><li>Square format ready for social media</li><li>Match stipulation featured</li></ul><a class="btn" href="https://payhip.com/b/4jkHx">Order — $15</a></div></dialog>
+<dialog id="d-foto"><button class="x" onclick="closeD('d-foto')">✕</button><img src="img/foto-8x10.jpg" alt="8x10 promo photo"><div class="di"><h3>8×10 promo photo</h3><div class="pr">$15</div><ul><li>The classic 8×10 fans buy and get signed</li><li>Wrestler's name and promotion logo</li><li>File ready to print at any photo lab</li></ul><a class="btn" href="https://payhip.com/b/I3Djf">Order — $15</a></div></dialog>
+<dialog id="d-camiseta"><button class="x" onclick="closeD('d-camiseta')">✕</button><img src="img/camiseta.jpg" alt="T-shirt design"><div class="di"><h3>T-shirt design</h3><div class="pr">$29</div><ul><li>Character or logo artwork, ready for your printer</li><li>High-resolution file with transparent background</li><li>Mockup included to show it on social media before printing</li></ul><a class="btn" href="https://payhip.com/b/yn4eT">Order — $29</a></div></dialog>
+<dialog id="d-stickers"><button class="x" onclick="closeD('d-stickers')">✕</button><img src="img/stickers.jpg" alt="Sticker sheet"><div class="di"><h3>Sticker sheet</h3><div class="pr">$19</div><ul><li>6 stickers: wrestlers, mask and logo</li><li>Cut lines ready to print the sheet</li><li>Cheap merch that sells at every show</li></ul><a class="btn" href="https://payhip.com/b/0yoIO">Order — $19</a></div></dialog>
+<dialog id="d-mascara"><button class="x" onclick="closeD('d-mascara')">✕</button><img src="img/mascara-diseno.jpg" alt="Mask design"><div class="di"><h3>Mask design</h3><div class="pr">$39</div><ul><li>Complete concept: front, colors, appliqués and materials</li><li>Spec sheet ready to hand to your mask maker</li><li>The design is yours: your character, your identity</li></ul><a class="btn" href="https://payhip.com/b/EexPT">Order — $39</a></div></dialog>
+<dialog id="d-tarjeta"><button class="x" onclick="closeD('d-tarjeta')">✕</button><div class="two"><img src="img/tarjeta-frente.jpg" alt="Card front"><img src="img/tarjeta-reverso.jpg" alt="Card back"></div><div class="di"><h3>Wrestler trading card</h3><div class="pr">$15</div><ul><li>Front with photo and name; back with bio and season-by-season record</li><li>Real trading-card size (2.5″ × 3.5″)</li><li>Sell them at the show and let fans collect your roster</li></ul><a class="btn" href="https://payhip.com/b/god0W">Order — $15</a></div></dialog>
+
+<script>
+function openD(id){document.getElementById(id).showModal()}
+function closeD(id){document.getElementById(id).close()}
+document.querySelectorAll('dialog').forEach(dg=>{dg.addEventListener('click',e=>{if(e.target===dg)dg.close()})});
+</script>
+</body>
+</html>

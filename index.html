@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas &amp; Chaos — Diseño y video pa' lucha libre independiente</title>
+<meta name="description" content="Carteleras, match cards, mercancía, fotos promo y edición de video — solo pa' empresas de lucha libre independiente. Puerto Rico, Latinoamérica y EE.UU.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b0e22;--navy2:#12142e;--cream:#f6eeda;--red:#d8232a;--yellow:#ffc61a;--gold:#d4a020;--blue:#2456c8;--ink:#14142a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);color:var(--cream);font-family:'Oswald',Arial,sans-serif;line-height:1.5}
+h1,h2,h3,.anton{font-family:'Anton','Arial Black',sans-serif;letter-spacing:.02em;text-transform:uppercase}
+a{color:var(--yellow)}
+header{position:sticky;top:0;z-index:50;background:#07081a;border-bottom:4px solid var(--red);display:flex;justify-content:space-between;align-items:center;padding:.7rem 1.1rem}
+.logo{font-family:'Anton','Arial Black',sans-serif;font-size:1.5rem;color:#fff;text-transform:uppercase}
+.logo span{color:var(--yellow)}
+.lang{color:#fff;text-decoration:none;border:2px solid var(--yellow);padding:.25rem .7rem;border-radius:4px;font-weight:600}
+.hero{padding:3.2rem 1.1rem 2.4rem;text-align:center;background:radial-gradient(ellipse at 30% 20%,rgba(36,86,200,.35),transparent 55%),radial-gradient(ellipse at 75% 25%,rgba(212,160,32,.25),transparent 55%),var(--navy)}
+.hero .kick{color:var(--yellow);font-weight:600;letter-spacing:.25em;font-size:.85rem}
+.hero h1{font-size:clamp(2.4rem,7.5vw,4.6rem);color:#fff;line-height:1.02;margin:.6rem auto;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--yellow);text-shadow:3px 3px 0 var(--red)}
+.hero p{max-width:56ch;margin:0 auto 1.4rem;font-size:1.12rem}
+.btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-family:'Anton','Arial Black',sans-serif;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:6px;font-size:1.05rem;box-shadow:0 4px 0 #7d1216;margin:.2rem}
+.btn.alt{background:transparent;border:2px solid var(--yellow);color:var(--yellow);box-shadow:none}
+section{padding:2.6rem 1.1rem;max-width:1120px;margin:0 auto}
+h2{font-size:clamp(1.7rem,4.5vw,2.6rem);color:#fff;text-align:center}
+h2 .y{color:var(--yellow)}
+.sub{text-align:center;max-width:62ch;margin:.5rem auto 1.8rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
+.card{background:var(--cream);color:var(--ink);border-radius:8px;overflow:hidden;transform:rotate(-.6deg);box-shadow:0 10px 24px rgba(0,0,0,.45);cursor:pointer;border:none;text-align:left;font-family:inherit;width:100%}
+.card:nth-child(even){transform:rotate(.7deg)}
+.card img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover;object-position:top}
+.card .cb{padding:.8rem .9rem 1rem}
+.card h3{font-size:1.15rem;color:var(--ink)}
+.card .pr{color:var(--red);font-family:'Anton','Arial Black',sans-serif;font-size:1.25rem}
+.card .go{color:var(--blue);font-weight:600;font-size:.92rem}
+table{width:100%;border-collapse:collapse;background:var(--navy2);border:2px solid #2a2d55;border-radius:8px;overflow:hidden;margin-bottom:1.6rem}
+th{background:var(--red);color:#fff;font-family:'Anton','Arial Black',sans-serif;text-transform:uppercase;text-align:left;padding:.7rem .9rem;font-size:1.05rem}
+td{padding:.62rem .9rem;border-bottom:1px solid #262950;vertical-align:top}
+td.p{font-family:'Anton','Arial Black',sans-serif;color:var(--yellow);white-space:nowrap;font-size:1.1rem}
+td a{font-weight:600}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.pkg{background:var(--cream);color:var(--ink);border-radius:8px;padding:1.3rem;border-top:10px solid var(--blue)}
+.pkg.hot{border-top-color:var(--red)}
+.pkg h3{font-size:1.35rem}
+.pkg .pr{font-family:'Anton','Arial Black',sans-serif;font-size:2rem;color:var(--red)}
+.pkg ul{margin:.6rem 0 1rem 1.1rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem}
+.step{background:var(--navy2);border:2px solid #2a2d55;border-radius:8px;padding:1.2rem}
+.step .n{font-family:'Anton','Arial Black',sans-serif;font-size:2.2rem;color:var(--yellow)}
+.about{background:var(--navy2);border-left:8px solid var(--yellow);border-radius:6px;padding:1.4rem 1.5rem;max-width:820px;margin:0 auto}
+dialog{background:var(--cream);color:var(--ink);border:none;border-radius:10px;max-width:620px;width:94vw;padding:0;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(3,3,12,.8)}
+dialog .di{padding:1.1rem 1.3rem 1.4rem}
+dialog img{width:100%;display:block;border-radius:6px 6px 0 0;max-height:52vh;object-fit:cover;object-position:top}
+dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+dialog .two img{border-radius:0;max-height:46vh}
+dialog h3{font-size:1.5rem;margin-bottom:.3rem}
+dialog .pr{font-family:'Anton','Arial Black',sans-serif;color:var(--red);font-size:1.6rem}
+dialog ul{margin:.5rem 0 1rem 1.15rem}
+.x{float:right;background:var(--red);color:#fff;border:none;font-family:'Anton','Arial Black',sans-serif;border-radius:50%;width:38px;height:38px;font-size:1rem;cursor:pointer;margin:.6rem}
+footer{background:#07081a;border-top:4px solid var(--red);padding:2rem 1.1rem;text-align:center;font-size:.95rem}
+.small{font-size:.82rem;opacity:.75;max-width:70ch;margin:.6rem auto 0}
+.note{background:#1c1030;border:2px solid #6d28a8;border-radius:8px;padding:1rem 1.2rem;max-width:820px;margin:0 auto 1.4rem;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Canvas <span>&amp;</span> Chaos</div>
+  <a class="lang" href="en.html">EN</a>
+</header>
+
+<div class="hero">
+  <div class="kick">SOLO LUCHA LIBRE INDEPENDIENTE</div>
+  <h1>Tu empresa merece lucir <em>como empresa grande</em></h1>
+  <p>Carteleras, match cards, mercancía, fotos promo y edición de video pa' promotoras independientes de Puerto Rico, Latinoamérica y las latinas en EE.UU. — hechas por gente que conoce el negocio desde adentro del ring.</p>
+  <a class="btn" href="mailto:swingbravo@gmail.com?subject=Quiero%20informaci%C3%B3n%20—%20Canvas%20%26%20Chaos">Pedir por correo</a>
+  <a class="btn alt" href="#ejemplos">Ver ejemplos</a>
+</div>
+
+<section id="ejemplos">
+  <h2>Ejemplos <span class="y">del trabajo</span></h2>
+  <p class="sub">Esto es lo que recibe una empresa que ordena con nosotros. Toca cualquier ejemplo pa' ver el detalle y el precio. (Promoción y luchadores de muestra: <strong>Lucha Isleña Championship</strong>, ficticios.)</p>
+  <div class="grid">
+    <button class="card" onclick="openD('d-cartelera')"><img src="img/cartelera.jpg" alt="Cartelera de evento de lucha libre"><div class="cb"><h3>Cartelera del evento</h3><div class="pr">$39</div><span class="go">Ver detalle — 2 estilos →</span></div></button>
+    <button class="card" onclick="openD('d-mc1')"><img src="img/match-card-1.jpg" alt="Match card lucha estelar"><div class="cb"><h3>Match card — lucha estelar</h3><div class="pr">$15</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-mc2')"><img src="img/match-card-2.jpg" alt="Match card lucha femenil"><div class="cb"><h3>Match card — femenil</h3><div class="pr">$15</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-foto')"><img src="img/foto-8x10.jpg" alt="Foto promo 8x10 de luchador"><div class="cb"><h3>Foto promo 8×10 pa' vender</h3><div class="pr">$15</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-camiseta')"><img src="img/camiseta.jpg" alt="Diseño de camiseta de luchador"><div class="cb"><h3>Diseño de camiseta</h3><div class="pr">$29</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-stickers')"><img src="img/stickers.jpg" alt="Hoja de stickers de luchadores"><div class="cb"><h3>Hoja de stickers</h3><div class="pr">$19</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-mascara')"><img src="img/mascara-diseno.jpg" alt="Diseño de máscara de luchador"><div class="cb"><h3>Diseño de máscara</h3><div class="pr">$39</div><span class="go">Ver detalle →</span></div></button>
+    <button class="card" onclick="openD('d-tarjeta')"><img src="img/tarjeta-frente.jpg" alt="Tarjeta de luchador"><div class="cb"><h3>Tarjeta de luchador</h3><div class="pr">$15</div><span class="go">Ver detalle →</span></div></button>
+  </div>
+</section>
+
+<section id="precios">
+  <h2>Servicios <span class="y">y precios</span></h2>
+  <p class="sub">Precios de entrada, sin sorpresas. Piezas sueltas pa' probar, paquetes pa' escalar.</p>
+  <table>
+    <tr><th>Diseño</th><th>Qué recibes</th><th>Precio</th><th></th></tr>
+    <tr><td><strong>Match card</strong></td><td>Gráfica luchador vs luchador lista pa' redes, con fecha y sede.</td><td class="p">$15</td><td><a href="https://payhip.com/b/4jkHx">Ordenar</a></td></tr>
+    <tr><td><strong>Cartelera del evento</strong></td><td>Poster completo con la cartelera entera, listo pa' imprimir y pa' redes. <strong>Dos estilos: Moderno o Clásico PR (collage de caritas con todo el roster)</strong> — el cliente escoge.</td><td class="p">$39</td><td><a href="https://payhip.com/b/G0bh7">Ordenar</a></td></tr>
+    <tr><td><strong>Foto promo 8×10</strong></td><td>Foto de luchador estilo promo clásico, con nombre y logo, lista pa' vender y firmar en los shows.</td><td class="p">$15</td><td><a href="https://payhip.com/b/I3Djf">Ordenar</a></td></tr>
+    <tr><td><strong>Tarjeta de luchador</strong></td><td>Frente y reverso tipo trading card, con datos y récord por temporada.</td><td class="p">$15</td><td><a href="https://payhip.com/b/god0W">Ordenar</a></td></tr>
+    <tr><td><strong>Hoja de stickers</strong></td><td>Hoja con tus luchadores, máscaras y logo, lista pa' imprimir.</td><td class="p">$19</td><td><a href="https://payhip.com/b/0yoIO">Ordenar</a></td></tr>
+    <tr><td><strong>Boletos y banner</strong></td><td>Diseño de boleto del evento y banner del local con la misma línea de la cartelera.</td><td class="p">$29</td><td><a href="https://payhip.com/b/lOmiG">Ordenar</a></td></tr>
+    <tr><td><strong>Diseño de camiseta</strong></td><td>Arte de mercancía listo pa' tu imprenta, con el personaje o logo del luchador.</td><td class="p">$29</td><td><a href="https://payhip.com/b/yn4eT">Ordenar</a></td></tr>
+    <tr><td><strong>Diseño de máscara</strong></td><td>Concepto completo de máscara (frente, colores, materiales) listo pa' entregar a tu mascarero.</td><td class="p">$39</td><td><a href="https://payhip.com/b/EexPT">Ordenar</a></td></tr>
+    <tr><td><strong>Logo personal de luchador</strong></td><td>Logo del personaje pa' mercancía, redes y gráficas.</td><td class="p">$39</td><td><a href="https://payhip.com/b/DqrWi">Ordenar</a></td></tr>
+    <tr><td><strong>Logo de la empresa</strong></td><td>Identidad de tu promotora: logo principal + versión pa' redes.</td><td class="p">$49</td><td><a href="https://payhip.com/b/kxRXm">Ordenar</a></td></tr>
+    <tr><td><strong>Kit de redes del evento</strong></td><td>Cartelera + match cards + gráfica de cuenta regresiva, todo en una línea.</td><td class="p">$79</td><td><a href="https://payhip.com/b/OLGE9">Ordenar</a></td></tr>
+  </table>
+  <table>
+    <tr><th>Video</th><th>Qué recibes</th><th>Precio</th><th></th></tr>
+    <tr><td><strong>Edición de lucha completa</strong></td><td>Tu lucha editada y limpia, con gráficas de nombres, lista pa' YouTube y redes.</td><td class="p">$25</td><td><a href="https://payhip.com/b/abA3L">Ordenar</a></td></tr>
+    <tr><td><strong>Video de entrada (tron)</strong></td><td>Video de entrada del luchador con su nombre, logo y estilo.</td><td class="p">$39</td><td><a href="https://payhip.com/b/V0os8">Ordenar</a></td></tr>
+    <tr><td><strong>Highlight reel de luchador</strong></td><td>Mini-reel de 1–2 minutos con lo mejor del luchador, pa' buscar bookings y patrocinadores.</td><td class="p">$49</td><td><a href="https://payhip.com/b/C79vL">Ordenar</a></td></tr>
+    <tr><td><strong>Edición del show completo</strong></td><td>El programa entero editado (hasta 6 luchas) con gráficas, listo pa' publicar.</td><td class="p">$89</td><td><a href="https://payhip.com/b/SEzeG">Ordenar</a></td></tr>
+  </table>
+  <div class="note"><strong>¿Campeonatos y cinturones?</strong> No los trabajamos. Eso es otro mundo — nuestro fuerte es que tu empresa y tus luchadores se vean profesionales en papel, en redes y en video.</div>
+  <div class="pkgs">
+    <div class="pkg hot"><h3>Paquete del Evento</h3><div class="pr">$99</div><ul><li>Cartelera del evento</li><li>Match cards de todas tus luchas (hasta 6)</li><li>Kit de redes con cuenta regresiva</li><li>Banner del local</li></ul><a class="btn" href="https://payhip.com/b/I0umj">Ordenar el paquete</a></div>
+    <div class="pkg"><h3>Paquete Luchador Pro</h3><div class="pr">$79</div><ul><li>Logo personal del luchador</li><li>Foto promo 8×10</li><li>Tarjeta de luchador</li><li>Highlight reel de 1–2 minutos</li></ul><a class="btn" href="https://payhip.com/b/x4SPD">Ordenar el paquete</a></div>
+    <div class="pkg"><h3>Mensual Promotora</h3><div class="pr">$149<span style="font-size:1rem">/mes</span></div><ul><li>2 Paquetes del Evento al mes</li><li>Gráficas de anuncio todo el mes</li><li>1 show completo editado</li><li>Prioridad de entrega</li></ul><p style="font-size:.95rem;margin:.35rem 0 0">Plan mensual — escríbenos a <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p></div>
+    <div class="pkg"><h3>Mensual Total</h3><div class="pr">$249<span style="font-size:1rem">/mes</span></div><ul><li>Todo lo del Mensual Promotora</li><li>2 shows completos editados</li><li>Mercancía nueva cada mes (1 diseño)</li><li>Entrega prioritaria 48 h</li></ul><p style="font-size:.95rem;margin:.35rem 0 0">Plan mensual — escríbenos a <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p></div>
+  </div>
+</section>
+
+<section id="como">
+  <h2>Cómo <span class="y">funciona</span></h2>
+  <p class="sub">Sin formularios eternos. Todo por correo.</p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Escríbenos</h3><p>Mándanos las fotos de tus luchadores y los datos del evento a <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a>.</p></div>
+    <div class="step"><div class="n">2</div><h3>Recibes la muestra</h3><p>Te enseñamos la pieza terminada con marca de agua pa' que la apruebes.</p></div>
+    <div class="step"><div class="n">3</div><h3>Apruebas y recibes</h3><p>Pagas y te llegan los archivos finales: listos pa' imprimir (300 dpi) y pa' redes.</p></div>
+  </div>
+</section>
+
+<section id="detras">
+  <h2>Quién está <span class="y">detrás</span></h2>
+  <p class="sub"></p>
+  <div class="about"><p>Canvas &amp; Chaos lo corre alguien que estuvo <strong>25+ años dentro del negocio como réferi en Puerto Rico</strong> — vio de cerca qué separa a la empresa que llena la cancha de la que no vende ni los boletos: cómo se ve. Por eso aquí no hacemos diseño «de deportes» en general. Solo lucha libre independiente, con el idioma, los tiempos y el presupuesto real de una promotora pequeña.</p></div>
+</section>
+
+<footer>
+  <div class="logo">Canvas <span>&amp;</span> Chaos</div>
+  <p>Pedidos y preguntas: <a href="mailto:swingbravo@gmail.com">swingbravo@gmail.com</a></p>
+  <p class="small">Los ejemplos de esta página usan una promoción y luchadores ficticios (Lucha Isleña Championship) pa' enseñar el estilo del trabajo. Tu empresa recibe diseños con TU gente y TU marca. © 2026 Canvas &amp; Chaos.</p>
+</footer>
+
+<dialog id="d-cartelera"><button class="x" onclick="closeD('d-cartelera')">✕</button><div style="background:var(--ink);color:var(--yellow);font-family:'Anton','Arial Black',sans-serif;padding:.55rem .9rem;letter-spacing:.06em">ESTILO MODERNO — LA ESTELAR EN GRANDE</div><img src="img/cartelera.jpg" alt="Cartelera estilo moderno"><div style="background:var(--ink);color:var(--yellow);font-family:'Anton','Arial Black',sans-serif;padding:.55rem .9rem;letter-spacing:.06em">ESTILO CLÁSICO PR — CARITAS RECORTADAS</div><img src="img/cartelera-caritas.jpg" alt="Cartelera estilo clásico PR con caritas recortadas"><div class="di"><h3>Cartelera del evento</h3><div class="pr">$39</div><ul><li><strong>Dos estilos a escoger:</strong> Moderno (la lucha estelar en grande) o Clásico PR (el collage de caritas recortadas con TODO tu roster completo, como los carteles clásicos de Puerto Rico — tú mandas las fotos de tu roster y armamos el collage)</li><li>Cartelera completa con todas las luchas de la noche</li><li>Versión pa' imprimir (300 dpi) y versión pa' redes</li><li>Fecha, sede y precios integrados</li></ul><a class="btn" href="https://payhip.com/b/G0bh7">Ordenar — $39</a></div></dialog>
+<dialog id="d-mc1"><button class="x" onclick="closeD('d-mc1')">✕</button><img src="img/match-card-1.jpg" alt="Match card estelar"><div class="di"><h3>Match card — lucha estelar</h3><div class="pr">$15</div><ul><li>Los dos luchadores cara a cara, nombres y fecha</li><li>Formato cuadrado listo pa' Instagram y Facebook</li><li>La misma línea visual de tu cartelera</li></ul><a class="btn" href="https://payhip.com/b/4jkHx">Ordenar — $15</a></div></dialog>
+<dialog id="d-mc2"><button class="x" onclick="closeD('d-mc2')">✕</button><img src="img/match-card-2.jpg" alt="Match card femenil"><div class="di"><h3>Match card — división femenil</h3><div class="pr">$15</div><ul><li>Presentación seria pa' tu división femenil</li><li>Formato cuadrado listo pa' redes</li><li>Estipulación de la lucha destacada</li></ul><a class="btn" href="https://payhip.com/b/4jkHx">Ordenar — $15</a></div></dialog>
+<dialog id="d-foto"><button class="x" onclick="closeD('d-foto')">✕</button><img src="img/foto-8x10.jpg" alt="Foto promo 8x10"><div class="di"><h3>Foto promo 8×10</h3><div class="pr">$15</div><ul><li>El clásico 8×10 que los fanáticos compran y mandan a firmar</li><li>Nombre del luchador y logo de la empresa</li><li>Archivo listo pa' imprimir en cualquier laboratorio</li></ul><a class="btn" href="https://payhip.com/b/I3Djf">Ordenar — $15</a></div></dialog>
+<dialog id="d-camiseta"><button class="x" onclick="closeD('d-camiseta')">✕</button><img src="img/camiseta.jpg" alt="Diseño de camiseta"><div class="di"><h3>Diseño de camiseta</h3><div class="pr">$29</div><ul><li>Arte del personaje o logo, listo pa' tu imprenta</li><li>Archivo en alta resolución con fondo transparente</li><li>Mockup incluido pa' enseñarla en redes antes de imprimir</li></ul><a class="btn" href="https://payhip.com/b/yn4eT">Ordenar — $29</a></div></dialog>
+<dialog id="d-stickers"><button class="x" onclick="closeD('d-stickers')">✕</button><img src="img/stickers.jpg" alt="Hoja de stickers"><div class="di"><h3>Hoja de stickers</h3><div class="pr">$19</div><ul><li>6 stickers: luchadores, máscara y logo</li><li>Con borde de corte listo pa' imprimir la hoja</li><li>Mercancía barata que se vende en cada show</li></ul><a class="btn" href="https://payhip.com/b/0yoIO">Ordenar — $19</a></div></dialog>
+<dialog id="d-mascara"><button class="x" onclick="closeD('d-mascara')">✕</button><img src="img/mascara-diseno.jpg" alt="Diseño de máscara"><div class="di"><h3>Diseño de máscara</h3><div class="pr">$39</div><ul><li>Concepto completo: frente, colores, aplicaciones y materiales</li><li>Hoja de especificaciones pa' entregar a tu mascarero</li><li>El diseño es tuyo: tu personaje, tu identidad</li></ul><a class="btn" href="https://payhip.com/b/EexPT">Ordenar — $39</a></div></dialog>
+<dialog id="d-tarjeta"><button class="x" onclick="closeD('d-tarjeta')">✕</button><div class="two"><img src="img/tarjeta-frente.jpg" alt="Tarjeta frente"><img src="img/tarjeta-reverso.jpg" alt="Tarjeta reverso"></div><div class="di"><h3>Tarjeta de luchador</h3><div class="pr">$15</div><ul><li>Frente con foto y nombre; reverso con ficha y récord por temporada</li><li>Tamaño real de trading card (2.5″ × 3.5″)</li><li>Pa' vender en el show y pa' que el fanático coleccione a tu roster</li></ul><a class="btn" href="https://payhip.com/b/god0W">Ordenar — $15</a></div></dialog>
+
+<script>
+function openD(id){document.getElementById(id).showModal()}
+function closeD(id){document.getElementById(id).close()}
+document.querySelectorAll('dialog').forEach(dg=>{dg.addEventListener('click',e=>{if(e.target===dg)dg.close()})});
+</script>
+</body>
+</html>
